@@ -16,7 +16,9 @@ public class LoginController {
 	TextField tf_port;
 
 	public void connectingToServer() {
-
+	name = tf_name.getText();
+	serverIP = tf_serverIP.getText();
+	port = tf_port.getText();
 
 	}
 
