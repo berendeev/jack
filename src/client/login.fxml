@@ -31,6 +31,6 @@
             <TextField fx:id="tf_port" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <Button layoutX="97.0" layoutY="193.0" mnemonicParsing="false" onAction="#connectingToServer" text="Connect" />
+      <Button fx:id="btn_connect" layoutX="97.0" layoutY="193.0" mnemonicParsing="false" onAction="#connectingToServer" text="Connect" />
    </children>
 </AnchorPane>

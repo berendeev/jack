@@ -10,11 +10,12 @@ public class MainWindowController {
 	@FXML
 	TextField tf_massage;
 
+
 	public void send() {
 		lbl_text.setText(lbl_text.getText() + tf_massage.getText() + "\n");
-		int quantityOfString = tf_massage.getLength()/91;
-		if(quantityOfString == 0)quantityOfString++;
-		lbl_text.setPrefHeight(lbl_text.getPrefHeight()+17*quantityOfString);
+		int quantityOfString = tf_massage.getLength() / 102;
+		if (quantityOfString == 0) quantityOfString++;
+		lbl_text.setPrefHeight(lbl_text.getPrefHeight() + 17 * quantityOfString);
 	}
 
 }
