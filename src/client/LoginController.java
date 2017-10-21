@@ -1,11 +1,22 @@
 package client;
 
-import javafx.scene.control.Button;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 
 public class LoginController {
-	Button btn_connect;
+	String name;
+	String serverIP;
+	String port;
+
+	@FXML
+	TextField tf_name;
+	@FXML
+	TextField tf_serverIP;
+	@FXML
+	TextField tf_port;
 
 	public void connectingToServer() {
+
 
 	}
 

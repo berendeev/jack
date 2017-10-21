@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <AnchorPane prefHeight="239.0" prefWidth="259.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.LoginController">
    <children>
       <GridPane layoutX="14.0" layoutY="14.0" prefHeight="147.0" prefWidth="232.0">
@@ -32,6 +31,6 @@
             <TextField fx:id="tf_port" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <Button fx:id="btn_connect" layoutX="97.0" layoutY="193.0" mnemonicParsing="false" onAction="#connectingToServer" text="Connect" />
+      <Button layoutX="97.0" layoutY="193.0" mnemonicParsing="false" onAction="#connectingToServer" text="Connect" />
    </children>
 </AnchorPane>
