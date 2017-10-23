@@ -5,28 +5,55 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 public class LoginController {
-	String name;
-	String serverIP;
-	String port;
+//	String name;
+//	String serverIP;
+//	String port;
 
 	@FXML
-	TextField tf_name;
+	private TextField tf_name;
 	@FXML
-	TextField tf_serverIP;
+	private TextField tf_serverIP;
 	@FXML
-	TextField tf_port;
+	private TextField tf_port;
 	@FXML
-	Button btn_connect;
+	private Button btn_connect;
 
-	public void connectingToServer() {
-	name = tf_name.getText();
-	serverIP = tf_serverIP.getText();
-	port = tf_port.getText();
+//	public void connectingToServer() {
+//		name = tf_name.getText();
+//		serverIP = tf_serverIP.getText();
+//		port = tf_port.getText();
+//
+//	}
 
-	}
-
-	public Button getBtn_connect(){
+	public Button getBtn_connect() {
 		return btn_connect;
 	}
 
+	public Attributes getAttributes() {
+		return new Attributes(tf_name.getText(), tf_serverIP.getText(), tf_port.getText());
+	}
+}
+
+class Attributes {
+	private String name;
+	private String sererIP;
+	private String port;
+
+	Attributes(String name, String sererIP, String port) {
+		this.name = name;
+		this.sererIP = sererIP;
+		this.port = port;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getSererIP() {
+		return sererIP;
+	}
+
+	public String getPort() {
+		return port;
+	}
 }
