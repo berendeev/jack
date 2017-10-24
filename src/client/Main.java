@@ -52,6 +52,8 @@ public class Main extends Application {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
 
+			writer.print(atr.getName());
+
 			controller.setWriter(writer);
 
 			while (true){
@@ -71,6 +73,3 @@ public class Main extends Application {
 
 }
 
-class FromSerev {
-
-}

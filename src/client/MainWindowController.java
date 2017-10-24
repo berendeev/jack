@@ -16,6 +16,7 @@ public class MainWindowController {
 
 	public void send() {
 		writer.print(tf_massage.getText());
+		tf_massage.clear();
 	}
 
 	public void printMessage(String message){
