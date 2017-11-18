@@ -18,19 +18,30 @@ public class LoginController {
 	@FXML
 	private Button btn_connect;
 
-//	public void connectingToServer() {
-//		name = tf_name.getText();
-//		serverIP = tf_serverIP.getText();
-//		port = tf_port.getText();
-//
-//	}
+
+	String name;
+	String serverIP;
+	String port;
+
+	public void forSimpleLife(){
+		tf_name.setText("User");
+		tf_serverIP.setText("localhost");
+		tf_port.setText("6666");
+	}
+
+	public void takeAttributes() {
+		name = tf_name.getText();
+		serverIP = tf_serverIP.getText();
+		port = tf_port.getText();
+
+	}
 
 	public Button getBtn_connect() {
 		return btn_connect;
 	}
 
 	public Attributes getAttributes() {
-		return new Attributes(tf_name.getText(), tf_serverIP.getText(), tf_port.getText());
+		return new Attributes(name, serverIP, port);
 	}
 }
 
