@@ -8,11 +8,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 public class Server {
-	private List<Connection> connections = Collections.synchronizedList(new ArrayList<Connection>());
+	private final List<Connection> connections = Collections.synchronizedList(new ArrayList<Connection>());
 
 	Server() {
 		int port = 6666;
@@ -41,7 +40,6 @@ public class Server {
 //#############################################################################
 
 
-
 	class Connection extends Thread {
 		BufferedReader reader;
 		PrintWriter writer;
@@ -53,7 +51,7 @@ public class Server {
 
 			try {
 				reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-				writer = new PrintWriter(socket.getOutputStream(), true);
+				writer = new PrintWriter(this.socket.getOutputStream(), true);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -63,26 +61,31 @@ public class Server {
 		public void run() {
 			try {
 				name = reader.readLine();
+				System.out.println(name);
 				synchronized (connections) {
-					Iterator<Connection> iter = connections.iterator();
-					while (iter.hasNext()) {
-						 iter.next().writer.println(name + " cames now");
+					for (Connection connection : connections) {
+						connection.writer.println(name + " cames now");
 					}
 				}
 
 				String message;
 				while (true) {
-					message = reader.readLine();
-					synchronized (connections) {
-						Iterator<Connection> iter = connections.iterator();
-						while (iter.hasNext()) {
-							iter.next().writer.println(name + ": " + message);
+					if (socket.isConnected()) {
+						System.out.println("get message");
+						message = reader.readLine();
+						System.out.println(message);
+						System.out.println("get message2");
+
+						synchronized (connections) {
+							for (Connection connection : connections) {
+								connection.writer.println(name + ": " + message);
+							}
 						}
-					}
+					} else break;
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
-
+				System.out.println("exc1");
 			}
 		}
 	}
