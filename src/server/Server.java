@@ -70,22 +70,28 @@ public class Server {
 
 				String message;
 				while (true) {
-					if (socket.isConnected()) {
-						System.out.println("get message");
 						message = reader.readLine();
-						System.out.println(message);
-						System.out.println("get message2");
+						System.out.println(name + ": " + message);
 
 						synchronized (connections) {
 							for (Connection connection : connections) {
 								connection.writer.println(name + ": " + message);
 							}
 						}
-					} else break;
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
-				System.out.println("exc1");
+//				e.printStackTrace();
+				try {
+					socket.close();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				System.out.println(name + " exit");
+				synchronized (connections) {
+					for (Connection connection : connections) {
+						connection.writer.println(name + " is offline");
+					}
+				}
 			}
 		}
 	}

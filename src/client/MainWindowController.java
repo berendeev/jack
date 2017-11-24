@@ -1,8 +1,6 @@
 package client;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,8 +16,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 
 public class MainWindowController {
-	@FXML
-	private Label lbl_text;
+
 	@FXML
 	private TextField tf_message;
 	@FXML
@@ -46,13 +43,14 @@ public class MainWindowController {
 
 	public void start(Attributes attributes) {
 		try {
+			tf_message.requestFocus();
 			InetAddress ipAdress = InetAddress.getByName(attributes.getSererIP());
 			socket = new Socket(ipAdress, Integer.parseInt(attributes.getPort()));
 			reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			writer = new PrintWriter(socket.getOutputStream(), true);
 			writer.println(attributes.getName());
 
-			new Thread(() -> {
+			Thread thread = new Thread(() -> {
 				while (true) {
 					try {
 						if (socket.isConnected()) {
@@ -65,7 +63,9 @@ public class MainWindowController {
 						e.printStackTrace();
 					}
 				}
-			}).start();
+			});
+			thread.setDaemon(true);
+			thread.start();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

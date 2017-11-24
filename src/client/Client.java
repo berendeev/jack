@@ -1,15 +1,12 @@
 package client;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
 
 public class Client extends Application {
 
@@ -24,9 +21,6 @@ public class Client extends Application {
 
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Client.class.getResource("login.fxml"));
-		//
-
-		//
 
 		Scene scene = new Scene(loader.load());
 		primaryStage.setScene(scene);
@@ -48,7 +42,6 @@ public class Client extends Application {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Client.class.getResource("mainWindow.fxml"));
 
-
 		try {
 			Scene scene = new Scene(loader.load());
 			stage.setScene(scene);
@@ -60,29 +53,6 @@ public class Client extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-//		try {
-//			InetAddress ipAdress = InetAddress.getByName(atr.getSererIP());
-//			Socket socket = new Socket(ipAdress, Integer.parseInt(atr.getPort()));
-//			BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//			PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-//
-//			writer.print(atr.getName());
-//
-//			controller.setWriter(writer);
-//
-//			while (true){
-//				controller.printMessage(reader.readLine());
-//
-//			}
-//
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-
-
-
 	}
-
 }
 
