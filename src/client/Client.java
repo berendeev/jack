@@ -48,6 +48,7 @@ public class Client extends Application {
 			stage.show();
 
 			MainWindowController controller = loader.getController();
+
 			controller.start(attributes);
 
 		} catch (IOException e) {

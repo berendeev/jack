@@ -6,8 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
+import java.beans.EventHandler;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -33,12 +35,13 @@ public class MainWindowController {
 	public synchronized void send() {
 		writer.println(tf_message.getText());
 		tf_message.clear();
-//		System.out.println("pressed");
 	}
 
 	public void printMessage(String message) {
+
 		labels.getChildren().add(new Label(message));
 		scrollPane.setContent(labels);
+		scrollPane.setVvalue(scrollPane.getVmax());//crookedly working
 	}
 
 	public void start(Attributes attributes) {
@@ -66,9 +69,12 @@ public class MainWindowController {
 			});
 			thread.setDaemon(true);
 			thread.start();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
+
+
 }
