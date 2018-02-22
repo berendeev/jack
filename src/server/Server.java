@@ -1,9 +1,10 @@
 package server;
 
-import java.io.BufferedReader;
+import javafx.scene.control.Label;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -32,26 +33,24 @@ public class Server {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("Server start1");
+		System.out.println("Server start");
 		new Server();
-		System.out.println("Server start2");
 	}
 
 //#############################################################################
 
 
 	class Connection extends Thread {
-		BufferedReader reader;
-		PrintWriter writer;
 		Socket socket;
-		String name;
+		ObjectOutputStream out;
+		ObjectInputStream in;
+		Label name;
 
 		Connection(Socket socket) {
 			this.socket = socket;
-
 			try {
-				reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-				writer = new PrintWriter(this.socket.getOutputStream(), true);
+				out = new ObjectOutputStream(socket.getOutputStream());
+				in = new ObjectInputStream(socket.getInputStream());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -60,24 +59,24 @@ public class Server {
 		@Override
 		public void run() {
 			try {
-				name = reader.readLine();
+				name = (Label) in.readObject();
 				System.out.println(name);
 				synchronized (connections) {
 					for (Connection connection : connections) {
-						connection.writer.println(name + " cames now");
+						connection.out.writeObject(new Label(name.getText() + "cames now"));
 					}
 				}
 
-				String message;
+				Label message;
 				while (true) {
-						message = reader.readLine();
-						System.out.println(name + ": " + message);
+					message = (Label) in.readObject();
+					System.out.println(name + ": " + message);
 
-						synchronized (connections) {
-							for (Connection connection : connections) {
-								connection.writer.println(name + ": " + message);
-							}
+					synchronized (connections) {
+						for (Connection connection : connections) {
+							connection.out.writeObject(name);
 						}
+					}
 				}
 			} catch (IOException e) {
 //				e.printStackTrace();
@@ -89,9 +88,15 @@ public class Server {
 				System.out.println(name + " exit");
 				synchronized (connections) {
 					for (Connection connection : connections) {
-						connection.writer.println(name + " is offline");
+						try {
+							connection.out.writeObject(new Label(name.getText() + " is offline"));
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
 					}
 				}
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
 			}
 		}
 	}
