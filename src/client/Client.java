@@ -49,7 +49,7 @@ public class Client extends Application {
 
 			MainWindowController controller = loader.getController();
 
-			controller.start(attributes);
+			controller.init(attributes);
 
 		} catch (IOException e) {
 			e.printStackTrace();
